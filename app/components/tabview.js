@@ -18,11 +18,21 @@ export default class TabView extends Component {
   constructor (props) {
     super(props)
   }
+  
+  onPress()
+  {
+    try{
+      Actions.login();
+    }catch(ex)
+    {
+      console.warn(ex);
+    }
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome} onPress={Actions.login}>
+        <Text style={styles.welcome} onPress={this.onPress.bind(this)}>
           跳转登录
         </Text>          
       </View>

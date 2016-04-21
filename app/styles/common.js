@@ -59,8 +59,12 @@ module.exports = StyleSheet.create({
         marginTop:0,
     },
     barBtnIconStyle:{
-        width:21,
+        width:12,
+        height:20,
+    },
+    menuBarBtnIconStyle:
+    {
+        width:20,
         height:16,
-        marginTop:2
     }
 });

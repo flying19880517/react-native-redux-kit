@@ -17,7 +17,6 @@ import React, {
 import { connect } from 'react-redux';
 import {DefaultRenderer} from "react-native-router-flux";
 
-var _isOpen=false;
 class Drawer extends Component {
   constructor (props) {
     super(props);
@@ -53,8 +52,8 @@ class Drawer extends Component {
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => navigationView}
-        onDrawerOpen={()=>{this.setState({ isOpen: true });_isOpen=true;}}
-        onDrawerClose={()=>{this.setState({ isOpen: false });_isOpen=false;}}>
+        onDrawerOpen={()=>{this.setState({ isOpen: true });}}
+        onDrawerClose={()=>{this.setState({ isOpen: false });}}>
         <DefaultRenderer navigationState={children[0]} />
       </DrawerLayoutAndroid>
     );

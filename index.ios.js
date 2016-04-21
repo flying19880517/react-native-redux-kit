@@ -9,4 +9,4 @@ import React,{
 
 import Root from './app/root';
 
-AppRegistry.registerComponent('ReactNativeReduxKit', () => Root);
+AppRegistry.registerComponent('RNReduxKit', () => Root);

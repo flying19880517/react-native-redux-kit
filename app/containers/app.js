@@ -61,8 +61,8 @@ class App extends Component {
   {
       BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
       
-      Ionicons.getImageSource((Platform.OS === 'ios'?'ios':'android')+'-arrow-back', 20, '#fff').then((source) => this.setState({ backButtonImage: source }));
-      Ionicons.getImageSource('android-menu', 20, '#fff').then((source) => this.setState({ drawerImage: source }));
+      Ionicons.getImageSource('ios-arrow-back', 30, '#fff').then((source) => this.setState({ backButtonImage: source }));
+      Ionicons.getImageSource('android-menu', 30, '#fff').then((source) => this.setState({ drawerImage: source }));
   }
 
   componentWillUnmount() {
@@ -90,8 +90,8 @@ class App extends Component {
   
   render() {
       const scenesData = Actions.create(
-        <Scene ref='modal' key="modal" component={Modal} >
-            <Scene key="root"
+        <Scene key="modal" component={Modal}>
+            <Scene key="root"      
                 navigationBarStyle={CommonStyles.navBarStyle}
                 titleStyle={CommonStyles.navTitleStyle}
                 barButtonIconStyle={CommonStyles.barBtnIconStyle}
@@ -106,7 +106,7 @@ class App extends Component {
                             initial={true}
                             navigationBarStyle={CommonStyles.navBarStyle} 
                             titleStyle={CommonStyles.navTitleStyle} 
-                            barButtonIconStyle={CommonStyles.barBtnIconStyle}
+                            barButtonIconStyle={CommonStyles.menuBarBtnIconStyle}
                             drawerImage={this.state.drawerImage}                             
                             icon={TabIcon} 
                             iconName='android-home'/>
@@ -115,13 +115,13 @@ class App extends Component {
                             title="个人中心" 
                             navigationBarStyle={CommonStyles.navBarStyle} 
                             titleStyle={CommonStyles.navTitleStyle} 
-                            barButtonIconStyle={CommonStyles.barBtnIconStyle}
+                            barButtonIconStyle={CommonStyles.menuBarBtnIconStyle}
                             drawerImage={this.state.drawerImage}
                             icon={TabIcon} 
                             iconName='android-person'/>
                     </Scene>
-                </Scene>                    
-            </Scene>
+                </Scene>
+            </Scene>                    
         </Scene>          
       );
       return (
