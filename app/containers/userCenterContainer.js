@@ -8,25 +8,23 @@ import React, {
 } from 'react-native';
 
 import { connect } from 'react-redux'
-import Login from '../components/login';
+import UserCenter from '../components/userCenter'
 
-class LoginContainer extends Component {
+class UserCenterContainer extends Component {
     constructor (props) {
         super(props)
     }
     
     render() {
         return (
-            <Login {...this.props} />
+            <UserCenter {...this.props} />
         );
     }
 }
 
 export default connect(state => ({
-    isLoading:state.app.isLoading,
     userName:state.user.userName,
     userToken:state.user.userToken,
     userInfo:state.user.userInfo,
-    loginResult:state.user.loginResult
   })
-)(LoginContainer);
+)(UserCenterContainer);

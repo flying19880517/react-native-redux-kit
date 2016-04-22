@@ -22,4 +22,12 @@ class MainContainer extends Component {
     }
 }
 
-export default MainContainer;
+export default connect(state => ({
+    userName:state.user.userName,
+    userToken:state.user.userToken,
+    userInfo:state.user.userInfo,
+    connectionInfo:state.netInfo.connectionInfo,
+    isConnectionExpensive:state.netInfo.isConnected,
+    isConnected:state.netInfo.isConnected,
+  })
+)(MainContainer);

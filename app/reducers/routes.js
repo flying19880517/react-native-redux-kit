@@ -9,12 +9,12 @@ const initialState = {
    scene:{}
 };
 
-export default function baodan(state=initialState, action={}) {
+export default function routes(state=initialState, action={}) {
   switch (action.type) {
     case types.FOCUS_ACTION:
-      return Object.assign({}, state, {
-        scene:action.scene,
-      });                                       
+        return Object.assign({}, state, {
+            scene:action.scene,
+        });                                       
     default:
       return state;
   }

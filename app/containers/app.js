@@ -20,7 +20,7 @@ import { connect } from 'react-redux'
 var Ionicons = require('react-native-vector-icons/Ionicons')
 import MainContainer from './mainContainer'
 import LoginContainer from './loginContainer'
-import TabView from '../components/tabview'
+import UserCenterContainer from './userCenterContainer'
 import Drawer from '../components/drawer'
 import CommonStyles from '../styles/common'
 import {Focus} from '../actions/routeActions'
@@ -71,7 +71,7 @@ class App extends Component {
 
   onBackAndroid()
   {
-       if(this.props.scene.sceneKey=='tabmain'||this.props.scene.sceneKey=='tabbar')
+       if(this.props.scene.sceneKey=='tabmain'||this.props.scene.sceneKey=='tabbar'||this.props.scene.sceneKey=='tab1'||this.props.scene.sceneKey=='tab2')
        {
             var datenow=Date.now();
             if (this.lastBackPressed && this.lastBackPressed + 2000 >= datenow) {
@@ -111,7 +111,7 @@ class App extends Component {
                             icon={TabIcon} 
                             iconName='android-home'/>
                         <Scene key="tab2" 
-                            component={TabView} 
+                            component={UserCenterContainer}
                             title="个人中心" 
                             navigationBarStyle={CommonStyles.navBarStyle} 
                             titleStyle={CommonStyles.navTitleStyle} 

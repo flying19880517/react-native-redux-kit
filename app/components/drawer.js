@@ -18,46 +18,46 @@ import { connect } from 'react-redux';
 import {DefaultRenderer} from "react-native-router-flux";
 
 class Drawer extends Component {
-  constructor (props) {
-    super(props);
-    this.state={
-       isOpen:false
+    constructor (props) {
+      super(props);
+      this.state={
+        isOpen:false
+      };
+    }
+    
+    getChildContext() {
+      return { drawer: this }
+    }
+    
+    componentWillMount()
+    {
+      this.setState({ isOpen: false });
+    }
+    
+    toggle = () => {
+      this.state.isOpen ? this.refs.navigation.closeDrawer() : this.refs.navigation.openDrawer();
     };
-  }
-  
-  getChildContext() {
-    return { drawer: this }
-  }
-  
-  componentWillMount()
-  {
-     this.setState({ isOpen: false });
-  }
-  
-  toggle = () => {
-    this.state.isOpen ? this.refs.navigation.closeDrawer() : this.refs.navigation.openDrawer()
-  };
 
-  render() {
-    const children = this.props.navigationState.children;
-    //console.warn(JSON.stringify(children));
-    var navigationView = (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
-      </View>
-    );
-    return (
-      <DrawerLayoutAndroid
-        ref="navigation"
-        drawerWidth={300}
-        drawerPosition={DrawerLayoutAndroid.positions.Left}
-        renderNavigationView={() => navigationView}
-        onDrawerOpen={()=>{this.setState({ isOpen: true });}}
-        onDrawerClose={()=>{this.setState({ isOpen: false });}}>
-        <DefaultRenderer navigationState={children[0]} />
-      </DrawerLayoutAndroid>
-    );
-  }
+    render() {
+      const children = this.props.navigationState.children;
+      //console.warn(JSON.stringify(children));
+      var navigationView = (
+        <View style={{flex: 1, backgroundColor: '#fff'}}>
+          <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
+        </View>
+      );
+      return (
+        <DrawerLayoutAndroid
+          ref="navigation"
+          drawerWidth={300}
+          drawerPosition={DrawerLayoutAndroid.positions.Left}
+          renderNavigationView={() => navigationView}
+          onDrawerOpen={()=>{this.setState({ isOpen: true });}}
+          onDrawerClose={()=>{this.setState({ isOpen: false });}}>
+          <DefaultRenderer navigationState={children[0]} />
+        </DrawerLayoutAndroid>
+      );
+    }
 }
 
 Drawer.contextTypes = {

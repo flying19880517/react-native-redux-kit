@@ -4,10 +4,16 @@
  */
 'use strict';
 import {combineReducers} from 'redux';
+import app from './app';
 import routes from './routes';
+import user from './user';
+import netInfo from './netInfo';
 
 const rootReducer = combineReducers({
-    routes
+    app,
+    routes,
+    user,
+    netInfo
 })
 
 export default rootReducer;

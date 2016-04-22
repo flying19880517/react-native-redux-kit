@@ -19,6 +19,10 @@ module.exports = StyleSheet.create({
     {
         justifyContent:'center'
     },
+    txtcenter:
+    {
+        textAlign:'center'
+    },   
     flexColumn:{
         flexDirection: 'column',
     },
@@ -66,5 +70,22 @@ module.exports = StyleSheet.create({
     {
         width:20,
         height:16,
+    },
+    button:{
+        alignSelf: 'stretch',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#00a2ed',
+        height: 40,
+        borderRadius: 5,
+        marginTop: 15
+    },
+    buttonText:{
+        fontWeight: 'bold',
+        color: '#FFF',
+    },
+    input: {
+        height: 50,
+        fontSize:18
     }
 });
