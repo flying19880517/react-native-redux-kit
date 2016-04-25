@@ -50,6 +50,10 @@ module.exports = StyleSheet.create({
     font24:{
         fontSize: 24,
     },
+    marginNavTop:
+    {
+        marginTop:50
+    },
     navBarStyle:{
         height:50,
         backgroundColor:'#00a2ed'

@@ -10,14 +10,17 @@ import React, {
   View,
   Image,
   TouchableHighlight,
-  NetInfo
+  NetInfo,
+  Dimensions
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux'
 import CommonStyles from '../styles/common';
+import ScrollableTabView,{ DefaultTabBar, ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import {SetAuthrizatuon } from '../actions/userActions';
 import {ChangeNetInfo,ChangeNetExpensiveStatus,ChangeNetConnectStatus} from '../actions/netInfoActions';
 import OfflineNetView from './offlineNetView';
+import ScrollTabView from './scrollTabView';
 
 export default class Main extends Component {
     constructor (props) {
@@ -106,10 +109,13 @@ export default class Main extends Component {
           return <OfflineNetView/>
       }
       return (
-        <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter]}>
-          <Text style={[CommonStyles.txtcenter,CommonStyles.font20]}>
-              首页
-          </Text>       
+        <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter,CommonStyles.marginNavTop]}>
+            <ScrollableTabView style={{width:Dimensions.get('window').width}} renderTabBar={()=><DefaultTabBar underlineColor='#00a2ed' activeTextColor='#00a2ed' inactiveTextColor='#999'/>}>
+                <ScrollTabView tabLabel="Tab1"/>
+                <ScrollTabView tabLabel="Tab2"/>
+                <ScrollTabView tabLabel="Tab3"/>
+                <ScrollTabView tabLabel="Tab4"/>
+            </ScrollableTabView>      
         </View>
       );
     }
