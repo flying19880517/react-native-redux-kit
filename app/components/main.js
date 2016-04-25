@@ -17,6 +17,7 @@ import {Actions} from 'react-native-router-flux'
 import CommonStyles from '../styles/common';
 import {SetAuthrizatuon } from '../actions/userActions';
 import {ChangeNetInfo,ChangeNetExpensiveStatus,ChangeNetConnectStatus} from '../actions/netInfoActions';
+import OfflineNetView from './offlineNetView';
 
 export default class Main extends Component {
     constructor (props) {
@@ -35,44 +36,80 @@ export default class Main extends Component {
                 //或者有其他异常，则在catch中返回
                 //Actions.login();
             })
-        }
-        NetInfo.addEventListener('change',this.handleConnectionInfoChange.bind(this));              
+        }          
+    }
+    
+    componentDidMount()
+    {
+        NetInfo.addEventListener('change',this.handleConnectionInfoChange.bind(this));
+        NetInfo.isConnected.addEventListener('change',this.handleConnectivityChange.bind(this));
+        //获取网络当前信息
+        NetInfo.fetch().done((connectionInfo) => {
+            var info=this.switchConnectionInfo(connectionInfo);
+            this.props.dispatch(ChangeNetInfo(info));
+        });
+        //获取网络当前连接状态
+        NetInfo.isConnected.fetch().then((isConnected) => {
+            this.props.dispatch(ChangeNetConnectStatus(isConnected));
+        });
+        //获取网络当前连接计费状态
+        NetInfo.isConnectionExpensive().then((isConnectionExpensive) => {
+            this.props.dispatch(ChangeNetExpensiveStatus(isConnectionExpensive));
+        });    
     }
     
     componentWillUnmount()
     {
         NetInfo.removeEventListener('change',this.handleConnectionInfoChange.bind(this));
+        NetInfo.isConnected.removeEventListener('change',this.handleConnectivityChange.bind(this));
     }
     
     handleConnectionInfoChange(connectionInfo)
     {
-        var netStatus='none';
-        switch (connectionInfo) {
-          case 'wifi':
-          case 'WIFI':
-            netStatus = 'wifi';
-            break;
-          case 'cell':
-          case 'MOBILE':
-            netStatus = 'mobile';
-            break;
-          case 'unknown':
-          case 'UNKNOWN':
-            netStatus = 'unknown';
-            break;                              
-          default:
-            netStatus = 'none';
-            break;
-        }
-        this.props.dispatch(ChangeNetInfo(netStatus));
-    }    
+        var info=this.switchConnectionInfo(connectionInfo);
+        this.props.dispatch(ChangeNetInfo(info));
+        NetInfo.isConnectionExpensive().then((isConnectionExpensive) => {
+            this.props.dispatch(ChangeNetExpensiveStatus(isConnectionExpensive));
+        });
+    }
+    
+    handleConnectivityChange(isConnected)
+    {
+        this.props.dispatch(ChangeNetConnectStatus(isConnected));
+    }
+    
+    switchConnectionInfo(connectionInfo)
+    {
+          var netStatus='none';
+          connectionInfo=connectionInfo.toLowerCase();
+          switch (connectionInfo) {
+            case 'wifi':          
+              netStatus = 'wifi';
+              break;
+            case 'cell':           
+            case 'mobile':
+              netStatus = 'mobile';
+              break;
+            case 'unknown':           
+              netStatus = 'unknown';
+              break;                              
+            default:
+              netStatus = 'none';
+              break;
+          }
+          return netStatus;
+    }
 
     render() {
+      if(!this.props.isConnected)
+      {
+          return <OfflineNetView/>
+      }
       return (
         <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter]}>
           <Text style={[CommonStyles.txtcenter,CommonStyles.font20]}>
-            首页
-          </Text>      
+              首页
+          </Text>       
         </View>
       );
     }

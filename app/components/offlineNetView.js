@@ -22,7 +22,8 @@ export default class LoadingView extends Component {
     render() {
       return (
           <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter]}>
-               <Image source={ require('../images/offline_network.png')}/>
+               <Image style={{width:100,height:100}} source={ require('../images/offline_network.png')}/>
+               <Text style={[CommonStyles.txtcenter,CommonStyles.font16,CommonStyles.marginTop10]}>没有可用的网络</Text> 
           </View>
       );
     }

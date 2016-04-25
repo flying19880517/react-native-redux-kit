@@ -6,10 +6,11 @@
 import * as types from './actionTypes';
 
 export function ChangeNetInfo(connectionInfo) {
-    return {type: types.CHANGE_NETSTATUS, connectionInfo};
+    //console.warn(connectionInfo);
+    return {type: types.CHANGE_NETINFO, connectionInfo};
 }
 
-export function ChangeNetExpensiveStatus(isConnectionExpensive,isConnected) {
+export function ChangeNetExpensiveStatus(isConnectionExpensive) {
     return {type: types.CHANGE_NETEXPENSIVE_STATUS, isConnectionExpensive};
 }
 
