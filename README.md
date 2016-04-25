@@ -13,23 +13,29 @@
 - [react-native-storage](https://github.com/sunnylqm/react-native-storage)(本地储存组件)
 
 ## 运行项目
+
 ### 第一步
+
 下载安装运行react native环境的软件，请自行搜索相关的资料
 
 ### 第二步
+
 git克隆本项目，然后在项目根目录执行以下命令安装react native命令
 ```
 npm install -g react-native-cli
 ```
 
 ### 第三步
+
 在项目根目录执行以下命令安装react native依赖组件
 ```
 npm install
 ```
 
 ### 第四步
+
 在模拟器或者真机运行，请自行搜索相关的资料
 
 ## 开源许可
+
 **MIT License**
