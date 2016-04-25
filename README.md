@@ -1,5 +1,4 @@
-# react-native-redux-kit
-***
+## react-native-redux-kit
 
 本项目使用react native构建App，结合redux框架来集成一些常用功能，方便大家学习和使用。本项目所有第三方组件都支持android和ios。
 
@@ -33,5 +32,4 @@ npm install
 在模拟器或者真机运行，请自行搜索相关的资料
 
 ## 开源许可
-***
 **MIT License**
