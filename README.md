@@ -14,8 +14,8 @@
 
 ## 截图
 
-![首页1](./screenshot/Screenshot_main1.jpg)  ![首页2](./screenshot/Screenshot_main2.jpg)
-![登录](./screenshot/Screenshot_login.jpg)   ![抽屉](./screenshot/Screenshot_drawer.jpg)
+![首页1](./screenshot/Screenshot_main1.jpg) ![首页2](./screenshot/Screenshot_main2.jpg)
+![登录](./screenshot/Screenshot_login.jpg) ![抽屉](./screenshot/Screenshot_drawer.jpg)
 
 ## 运行项目
 
