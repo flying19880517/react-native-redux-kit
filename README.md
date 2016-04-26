@@ -12,6 +12,13 @@
 - [react-native-scrollable-tab-view](https://github.com/brentvatne/react-native-scrollable-tab-view)(滑动tab组件)
 - [react-native-storage](https://github.com/sunnylqm/react-native-storage)(本地储存组件)
 
+## 截图
+
+![首页1](http://git.oschina.net/uploads/images/2016/0426/090044_2ae08991_129688.jpeg "首页1")
+![首页2](http://git.oschina.net/uploads/images/2016/0426/090149_1c51e2cd_129688.jpeg "首页2")
+![登录](http://git.oschina.net/uploads/images/2016/0426/090302_e98fb12b_129688.jpeg "登录")
+![抽屉](http://git.oschina.net/uploads/images/2016/0426/090329_cf2590c2_129688.jpeg "抽屉")
+
 ## 运行项目
 
 ### 第一步
