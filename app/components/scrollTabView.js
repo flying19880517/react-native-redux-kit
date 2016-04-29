@@ -14,6 +14,7 @@ import React, {
 } from 'react-native';
 
 import CommonStyles from '../styles/common';
+import OfflineNetView from './offlineNetView';
 
 export default class ScrollTabView extends Component {
     constructor (props) {
@@ -21,6 +22,10 @@ export default class ScrollTabView extends Component {
     }
     
     render() {
+      if(!this.props.isConnected)
+      {
+          return <OfflineNetView/>
+      }
       return (
         <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter]}>
           <Text style={[CommonStyles.font20]}>

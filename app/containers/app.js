@@ -12,7 +12,8 @@ import React, {
   BackAndroid,
   Alert,
   ToastAndroid,
-  Platform
+  Platform,
+  NetInfo
 } from 'react-native';
 
 import {Scene, Reducer, Router, TabBar, Modal, Actions} from 'react-native-router-flux'
@@ -24,6 +25,7 @@ import UserCenterContainer from './userCenterContainer'
 import Drawer from '../components/drawer'
 import CommonStyles from '../styles/common'
 import {Focus} from '../actions/routeActions'
+import {ChangeNetInfo,ChangeNetExpensiveStatus,ChangeNetConnectStatus} from '../actions/netInfoActions';
 
 class TabIcon extends Component {
   render(){
@@ -59,14 +61,37 @@ class App extends Component {
   
   componentWillMount()
   {
-      BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
-      
+      if(Platform.OS==='android')
+      {
+           BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+      }
+      NetInfo.addEventListener('change',this.handleConnectionInfoChange.bind(this));
+      NetInfo.isConnected.addEventListener('change',this.handleConnectivityChange.bind(this));
+      //获取网络当前信息
+      NetInfo.fetch().done((connectionInfo) => {
+          var info=this.switchConnectionInfo(connectionInfo);
+          this.props.dispatch(ChangeNetInfo(info));
+      });
+      //获取网络当前连接状态
+      NetInfo.isConnected.fetch().then((isConnected) => {
+          this.props.dispatch(ChangeNetConnectStatus(isConnected));
+      });
+      //获取网络当前连接计费状态
+      NetInfo.isConnectionExpensive().then((isConnectionExpensive) => {
+          this.props.dispatch(ChangeNetExpensiveStatus(isConnectionExpensive));
+      });
+             
       Ionicons.getImageSource('ios-arrow-back', 30, '#fff').then((source) => this.setState({ backButtonImage: source }));
       Ionicons.getImageSource('android-menu', 30, '#fff').then((source) => this.setState({ drawerImage: source }));
   }
 
   componentWillUnmount() {
-      BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+      if(Platform.OS==='android')
+      {
+          BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+      }
+      NetInfo.removeEventListener('change',this.handleConnectionInfoChange.bind(this));
+      NetInfo.isConnected.removeEventListener('change',this.handleConnectivityChange.bind(this));      
   }
 
   onBackAndroid()
@@ -86,7 +111,43 @@ class App extends Component {
            Actions.pop();
            return true;
        }
-  }    
+  }
+  
+  handleConnectionInfoChange(connectionInfo)
+  {
+      var info=this.switchConnectionInfo(connectionInfo);
+      this.props.dispatch(ChangeNetInfo(info));
+      NetInfo.isConnectionExpensive().then((isConnectionExpensive) => {
+          this.props.dispatch(ChangeNetExpensiveStatus(isConnectionExpensive));
+      });
+  }
+
+  handleConnectivityChange(isConnected)
+  {
+      this.props.dispatch(ChangeNetConnectStatus(isConnected));
+  }
+
+  switchConnectionInfo(connectionInfo)
+  {
+      var netStatus='none';
+      connectionInfo=connectionInfo.toLowerCase();
+      switch (connectionInfo) {
+      case 'wifi':          
+          netStatus = 'wifi';
+          break;
+      case 'cell':           
+      case 'mobile':
+          netStatus = 'mobile';
+          break;
+      case 'unknown':           
+          netStatus = 'unknown';
+          break;                              
+      default:
+          netStatus = 'none';
+          break;
+      }
+      return netStatus;
+  }      
   
   render() {
       const scenesData = Actions.create(

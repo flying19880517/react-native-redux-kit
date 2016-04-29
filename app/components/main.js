@@ -18,7 +18,6 @@ import {Actions} from 'react-native-router-flux'
 import CommonStyles from '../styles/common';
 import ScrollableTabView,{ DefaultTabBar, ScrollableTabBar} from 'react-native-scrollable-tab-view';
 import {SetAuthrizatuon } from '../actions/userActions';
-import {ChangeNetInfo,ChangeNetExpensiveStatus,ChangeNetConnectStatus} from '../actions/netInfoActions';
 import OfflineNetView from './offlineNetView';
 import ScrollTabView from './scrollTabView';
 
@@ -41,80 +40,15 @@ export default class Main extends Component {
             })
         }          
     }
-    
-    componentDidMount()
-    {
-        NetInfo.addEventListener('change',this.handleConnectionInfoChange.bind(this));
-        NetInfo.isConnected.addEventListener('change',this.handleConnectivityChange.bind(this));
-        //获取网络当前信息
-        NetInfo.fetch().done((connectionInfo) => {
-            var info=this.switchConnectionInfo(connectionInfo);
-            this.props.dispatch(ChangeNetInfo(info));
-        });
-        //获取网络当前连接状态
-        NetInfo.isConnected.fetch().then((isConnected) => {
-            this.props.dispatch(ChangeNetConnectStatus(isConnected));
-        });
-        //获取网络当前连接计费状态
-        NetInfo.isConnectionExpensive().then((isConnectionExpensive) => {
-            this.props.dispatch(ChangeNetExpensiveStatus(isConnectionExpensive));
-        });    
-    }
-    
-    componentWillUnmount()
-    {
-        NetInfo.removeEventListener('change',this.handleConnectionInfoChange.bind(this));
-        NetInfo.isConnected.removeEventListener('change',this.handleConnectivityChange.bind(this));
-    }
-    
-    handleConnectionInfoChange(connectionInfo)
-    {
-        var info=this.switchConnectionInfo(connectionInfo);
-        this.props.dispatch(ChangeNetInfo(info));
-        NetInfo.isConnectionExpensive().then((isConnectionExpensive) => {
-            this.props.dispatch(ChangeNetExpensiveStatus(isConnectionExpensive));
-        });
-    }
-    
-    handleConnectivityChange(isConnected)
-    {
-        this.props.dispatch(ChangeNetConnectStatus(isConnected));
-    }
-    
-    switchConnectionInfo(connectionInfo)
-    {
-          var netStatus='none';
-          connectionInfo=connectionInfo.toLowerCase();
-          switch (connectionInfo) {
-            case 'wifi':          
-              netStatus = 'wifi';
-              break;
-            case 'cell':           
-            case 'mobile':
-              netStatus = 'mobile';
-              break;
-            case 'unknown':           
-              netStatus = 'unknown';
-              break;                              
-            default:
-              netStatus = 'none';
-              break;
-          }
-          return netStatus;
-    }
 
     render() {
-      if(!this.props.isConnected)
-      {
-          return <OfflineNetView/>
-      }
       return (
         <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter,CommonStyles.marginNavTop]}>
             <ScrollableTabView style={{width:Dimensions.get('window').width}} renderTabBar={()=><DefaultTabBar underlineColor='#00a2ed' activeTextColor='#00a2ed' inactiveTextColor='#999'/>}>
-                <ScrollTabView tabLabel="Tab1"/>
-                <ScrollTabView tabLabel="Tab2"/>
-                <ScrollTabView tabLabel="Tab3"/>
-                <ScrollTabView tabLabel="Tab4"/>
+                <ScrollTabView tabLabel="Tab1" {...this.props}/>
+                <ScrollTabView tabLabel="Tab2" {...this.props}/>
+                <ScrollTabView tabLabel="Tab3" {...this.props}/>
+                <ScrollTabView tabLabel="Tab4" {...this.props}/>
             </ScrollableTabView>      
         </View>
       );
