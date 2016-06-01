@@ -4,7 +4,10 @@
  */
 'use strict';
 import React, {
-  Component,
+    Component,
+} from 'react';
+
+import {
   StyleSheet,
   Text,
   View,
@@ -109,7 +112,7 @@ export default class Login extends Component {
           
         return (
             <View style={CommonStyles.container}>
-                <ScrollView contentContainerStyle={[CommonStyles.padding10,CommonStyles.hcenter]}>
+                <ScrollView contentContainerStyle={[CommonStyles.padding10,{alignItems:'center'}]}>
                     <Image
                         source={ require('../images/login_logo.png')}
                         style={styles.logo}/>
@@ -145,6 +148,7 @@ const styles = StyleSheet.create({
     height: 120,
     marginTop:(Dimensions.get('window').width>450?0:100),
     marginBottom:10,
-    opacity: 0.4
+    opacity: 0.4,
+    borderWidth:1
   }
 });

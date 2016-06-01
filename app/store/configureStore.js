@@ -3,14 +3,20 @@
  * https://github.com/facebook/react-native
  */
 'use strict';
-import {createStore, applyMiddleware} from 'redux';
+import { Platform } from 'react-native';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import devTools from 'remote-redux-devtools';
 import rootReducer from '../reducers/index';
 
-const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
-
 export default function configureStore(initialState) {
-    const store = createStoreWithMiddleware(rootReducer, initialState);
-
-    return store;
+    const enhancer = compose(
+        applyMiddleware(thunkMiddleware),
+            devTools({
+            name: Platform.OS,
+            hostname: 'localhost',
+            port: 5678
+        })
+    );
+    return createStore(rootReducer, initialState, enhancer);
 }

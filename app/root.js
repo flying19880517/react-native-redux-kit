@@ -3,7 +3,9 @@
  * https://github.com/facebook/react-native
  */
 'use strict';
-import React,{Component} from 'react-native';
+import React, {
+    Component,
+} from 'react';
 
 import { createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux'

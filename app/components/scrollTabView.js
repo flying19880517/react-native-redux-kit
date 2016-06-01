@@ -4,7 +4,10 @@
  */
 'use strict';
 import React, {
-  Component,
+    Component,
+} from 'react';
+
+import {
   StyleSheet,
   Text,
   View,
@@ -30,7 +33,7 @@ export default class ScrollTabView extends Component {
         <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter]}>
           <Text style={[CommonStyles.font20]}>
               {this.props.tabLabel}
-          </Text>         
+          </Text>        
         </View>
       );
     }

@@ -4,10 +4,14 @@
  */
 'use strict';
 import React, {
+    Component,
+} from 'react';
+
+import {
   View,
+  StyleSheet,
   Text,
   StatusBar,
-  Component,
   Navigator,
   BackAndroid,
   Alert,
@@ -18,7 +22,7 @@ import React, {
 
 import {Scene, Reducer, Router, TabBar, Modal, Actions} from 'react-native-router-flux'
 import { connect } from 'react-redux'
-var Ionicons = require('react-native-vector-icons/Ionicons')
+import Ionicons  from 'react-native-vector-icons/Ionicons'
 import MainContainer from './mainContainer'
 import LoginContainer from './loginContainer'
 import UserCenterContainer from './userCenterContainer'
@@ -31,8 +35,8 @@ class TabIcon extends Component {
   render(){
     var color = this.props.selected ? '#00a2ed' : '#aaa';
     return (
-      <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center'}}>
-        <Ionicons style={{color: color}} name={this.props.iconName} size={30} />
+      <View style={[{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center'},this.props.sceneStyle]}>
+        <Ionicons style={{color: color}} name={this.props.iconName} size={24} />
         <Text style={{color: color}}>{this.props.title}</Text>
       </View>
       );
@@ -82,7 +86,7 @@ class App extends Component {
       });
              
       Ionicons.getImageSource('ios-arrow-back', 30, '#fff').then((source) => this.setState({ backButtonImage: source }));
-      Ionicons.getImageSource('android-menu', 30, '#fff').then((source) => this.setState({ drawerImage: source }));
+      Ionicons.getImageSource('md-menu', 30, '#fff').then((source) => this.setState({ drawerImage: source }));
   }
 
   componentWillUnmount() {
@@ -96,7 +100,7 @@ class App extends Component {
 
   onBackAndroid()
   {
-       if(this.props.scene.sceneKey=='tabmain'||this.props.scene.sceneKey=='tabbar'||this.props.scene.sceneKey=='tab1'||this.props.scene.sceneKey=='tab2')
+       if(this.props.scene.sceneKey=='drawer'||this.props.scene.sceneKey=='main'||this.props.scene.sceneKey=='tab1'||this.props.scene.sceneKey=='tab2')
        {
             var datenow=Date.now();
             if (this.lastBackPressed && this.lastBackPressed + 2000 >= datenow) {
@@ -150,46 +154,50 @@ class App extends Component {
   }      
   
   render() {
-      const scenesData = Actions.create(
-        <Scene key="modal" component={Modal}>
-            <Scene key="root"      
-                navigationBarStyle={CommonStyles.navBarStyle}
-                titleStyle={CommonStyles.navTitleStyle}
-                barButtonIconStyle={CommonStyles.barBtnIconStyle}
-                backButtonImage={this.state.backButtonImage}
-                hideNavBar={false}>
-                <Scene key="login" component={LoginContainer} title="登录" />
-                <Scene key="tabbar" component={Platform.OS==='ios'?null:Drawer} title='App'  initial={true} hideNavBar={true}>
-                    <Scene key="tabmain" tabs={true} default='tab1'>
-                        <Scene key="tab1"
-                            component={MainContainer} 
-                            title="首页" 
-                            initial={true}
-                            navigationBarStyle={CommonStyles.navBarStyle} 
-                            titleStyle={CommonStyles.navTitleStyle} 
-                            barButtonIconStyle={CommonStyles.menuBarBtnIconStyle}
-                            drawerImage={this.state.drawerImage}                             
-                            icon={TabIcon} 
-                            iconName='android-home'/>
-                        <Scene key="tab2" 
-                            component={UserCenterContainer}
-                            title="个人中心" 
-                            navigationBarStyle={CommonStyles.navBarStyle} 
-                            titleStyle={CommonStyles.navTitleStyle} 
-                            barButtonIconStyle={CommonStyles.menuBarBtnIconStyle}
-                            drawerImage={this.state.drawerImage}
-                            icon={TabIcon} 
-                            iconName='android-person'/>
-                    </Scene>
-                </Scene>
-            </Scene>                    
-        </Scene>          
-      );
       return (
         this.state.backButtonImage!=null&&this.state.drawerImage!=null?
         (<View style={CommonStyles.flex1}>
         <StatusBar backgroundColor="#00a2ed" barStyle="light-content"/>
-        <Router createReducer={this.reducerCreate.bind(this)} scenes={scenesData}/>
+        <Router createReducer={this.reducerCreate.bind(this)} getSceneStyle={getSceneStyle}>
+            <Scene key="modal" component={Modal}>
+                <Scene key="root" 
+                    hideNavBar={true}
+                    hideTabBar={true}
+                    navigationBarStyle={CommonStyles.navBarStyle} 
+                    titleStyle={CommonStyles.navTitleStyle}
+                    backButtonImage={this.state.backButtonImage}
+                    >
+                    <Scene key="login" component={LoginContainer} title="登录" hideNavBar={false}/>
+                    <Scene key="drawer" component={Platform.OS==='ios'?null:Drawer} initial={true} hideNavBar={true}>
+                        <Scene key="main" tabs={true} default='tab1' hideNavBar={true}>
+                            <Scene key="tab1"
+                                component={MainContainer} 
+                                title="首页"
+                                getTitle={()=>'App'} 
+                                initial={true}
+                                navigationBarStyle={CommonStyles.navBarStyle} 
+                                titleStyle={CommonStyles.navTitleStyle}
+                                leftButtonIconStyle={CommonStyles.menuBarBtnIconStyle}
+                                tabStyle={styles.bottomTabStyle}
+                                drawerImage={this.state.drawerImage}          
+                                icon={TabIcon}
+                                iconName='md-home'/>
+                            <Scene key="tab2" 
+                                component={UserCenterContainer}
+                                title="个人中心"
+                                getTitle={()=>'App'}  
+                                navigationBarStyle={CommonStyles.navBarStyle} 
+                                titleStyle={CommonStyles.navTitleStyle} 
+                                leftButtonIconStyle={CommonStyles.menuBarBtnIconStyle}
+                                tabStyle={styles.bottomTabStyle}
+                                drawerImage={this.state.drawerImage}
+                                icon={TabIcon} 
+                                iconName='md-person'/>
+                        </Scene>
+                    </Scene>
+                </Scene>                    
+            </Scene>
+        </Router>
         </View>):null
       );   
   }
@@ -199,3 +207,27 @@ export default connect((state)=>({
         scene:state.routes.scene
     })
 )(App);
+
+
+// define this based on the styles/dimensions you use
+const getSceneStyle = function (/* NavigationSceneRendererProps */ props, computedProps) {
+  const style = {
+    flex: 1,
+    backgroundColor: '#FAFAFA',
+    shadowColor: null,
+    shadowOffset: null,
+    shadowOpacity: null,
+    shadowRadius: null,
+  };
+  if (computedProps.isActive) {
+    style.marginTop = computedProps.hideNavBar ? 0 : Platform.OS === 'ios' ? 64 : 44;
+    style.marginBottom = computedProps.hideTabBar ? 0 : 50;
+  }
+  return style;
+}
+
+const styles = StyleSheet.create({
+    bottomTabStyle:{
+        paddingBottom:2
+    }
+});

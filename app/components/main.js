@@ -4,7 +4,10 @@
  */
 'use strict';
 import React, {
-  Component,
+    Component,
+} from 'react';
+
+import {
   StyleSheet,
   Text,
   View,
@@ -43,7 +46,7 @@ export default class Main extends Component {
 
     render() {
       return (
-        <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter,CommonStyles.marginNavTop]}>
+        <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter]}>
             <ScrollableTabView style={{width:Dimensions.get('window').width}} renderTabBar={()=><DefaultTabBar underlineColor='#00a2ed' activeTextColor='#00a2ed' inactiveTextColor='#999'/>}>
                 <ScrollTabView tabLabel="Tab1" {...this.props}/>
                 <ScrollTabView tabLabel="Tab2" {...this.props}/>

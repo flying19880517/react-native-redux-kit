@@ -3,9 +3,9 @@
  * https://github.com/facebook/react-native
  */
 'use strict';
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Platform} from 'react-native';
 
-module.exports = StyleSheet.create({
+export default  StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
@@ -13,11 +13,11 @@ module.exports = StyleSheet.create({
     },
     hcenter:
     {
-        alignItems:'center'
+        justifyContent:'center'
     },
     vcenter:
     {
-        justifyContent:'center'
+        alignItems:'center'
     },
     txtcenter:
     {
@@ -52,18 +52,18 @@ module.exports = StyleSheet.create({
     },
     marginNavTop:
     {
-        marginTop:50
+        marginTop:Platform.OS === 'ios' ? 64 : 44
     },
     navBarStyle:{
-        height:50,
+        height:Platform.OS === 'ios' ? 64 : 44,
         backgroundColor:'#00a2ed'
     },
     navTitleStyle:{
         textAlign: "center",
         color:'#fff',
-        fontSize:21,
+        fontSize:20,
         position: 'absolute',
-        top:12,
+        top:8,
         marginTop:0,
     },
     barBtnIconStyle:{
@@ -73,7 +73,7 @@ module.exports = StyleSheet.create({
     menuBarBtnIconStyle:
     {
         width:20,
-        height:16,
+        height:14,
     },
     button:{
         alignSelf: 'stretch',

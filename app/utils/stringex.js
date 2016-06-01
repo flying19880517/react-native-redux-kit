@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-module.exports = {
+export default  {
     trim(s){
         return s.replace(/(^\s*)|(\s*$)/g, "");
     }

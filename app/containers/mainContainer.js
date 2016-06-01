@@ -4,8 +4,8 @@
  */
 'use strict';
 import React, {
-  Component,
-} from 'react-native';
+    Component,
+} from 'react';
 
 import { connect } from 'react-redux'
 import Main from '../components/main';

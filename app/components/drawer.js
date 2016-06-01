@@ -4,14 +4,17 @@
  */
 'use strict';
 import React, {
-  Component,
+    Component,
+    PropTypes
+} from 'react';
+
+import {
   StyleSheet,
   Text,
   View,
   Image,
   TouchableHighlight,
   DrawerLayoutAndroid,
-  PropTypes
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -54,7 +57,7 @@ class Drawer extends Component {
           renderNavigationView={() => navigationView}
           onDrawerOpen={()=>{this.setState({ isOpen: true });}}
           onDrawerClose={()=>{this.setState({ isOpen: false });}}>
-          <DefaultRenderer navigationState={children[0]} />
+          <DefaultRenderer title='App' navigationState={children[0]} onNavigate={this.props.onNavigate}/>
         </DrawerLayoutAndroid>
       );
     }
