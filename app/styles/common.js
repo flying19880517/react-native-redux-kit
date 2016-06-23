@@ -66,6 +66,10 @@ export default  StyleSheet.create({
         top:8,
         marginTop:0,
     },
+    navLeftButtonStyle:{
+        position: 'absolute',
+        top:Platform.OS === 'ios' ? 17 : 5,
+    },
     barBtnIconStyle:{
         width:12,
         height:20,

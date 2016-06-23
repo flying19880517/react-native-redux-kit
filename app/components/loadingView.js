@@ -13,9 +13,7 @@ import {
   View,
   Image,
   TouchableHighlight,
-  ProgressBarAndroid,
-  ProgressViewIOS,
-  Platform
+  ActivityIndicator
 } from 'react-native';
 
 import CommonStyles from '../styles/common';
@@ -28,7 +26,7 @@ export default class LoadingView extends Component {
     render() {
       return (
           <View style={[CommonStyles.container,CommonStyles.vcenter,CommonStyles.hcenter]}>
-              {Platform.OS==='ios'?<ProgressViewIOS progress={this.props.progress}/>:<ProgressBarAndroid progress={this.props.progress}/>}
+              <ActivityIndicator animating={this.props.isLoading} size='large'/>
               <Text style={[CommonStyles.font20,CommonStyles.marginTop10]}>{this.props.tip}</Text>
           </View>
       );

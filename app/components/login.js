@@ -30,6 +30,8 @@ import { SignIn,CleanAuthrizatuon} from '../actions/userActions';
 import {Actions} from 'react-native-router-flux'
 
 var interval=null;
+const {width,height}=Dimensions.get('window');
+
 export default class Login extends Component {
     constructor(props) {
       super(props);
@@ -107,7 +109,7 @@ export default class Login extends Component {
     render() {
         if (this.props.isLoading)
         {
-            return (<LoadingView progress={this.props.isLoading?0:1} tip='登录中...'/>);
+            return (<LoadingView isLoading={this.props.isLoading} tip='登录中...'/>);
         }
           
         return (
@@ -117,13 +119,12 @@ export default class Login extends Component {
                         source={ require('../images/login_logo.png')}
                         style={styles.logo}/>
                     <TextInput
-                        style={CommonStyles.input}
+                        style={[CommonStyles.input,{width:width-20}]}
                         placeholder='用户名' onChangeText={(text) => this.setState({userName:text})} value={this.state.userName}/>
                     <TextInput
-                        style={CommonStyles.input}
+                        style={[CommonStyles.input,{width:width-20}]}
                         placeholder='密码'
                         password={true} onChangeText={(text) => this.setState({password:text})} value={this.state.password}/>
-
                     <TouchableHighlight
                         style={CommonStyles.button}
                         underlayColor='#87ceeb'
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 120,
     height: 120,
-    marginTop:(Dimensions.get('window').width>450?0:100),
+    marginTop:(width>450?0:100),
     marginBottom:10,
     opacity: 0.4,
     borderWidth:1

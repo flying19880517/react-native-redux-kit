@@ -166,10 +166,11 @@ class App extends Component {
                     navigationBarStyle={CommonStyles.navBarStyle} 
                     titleStyle={CommonStyles.navTitleStyle}
                     backButtonImage={this.state.backButtonImage}
+                    leftButtonStyle={CommonStyles.navLeftButtonStyle}
                     >
                     <Scene key="login" component={LoginContainer} title="登录" hideNavBar={false}/>
                     <Scene key="drawer" component={Platform.OS==='ios'?null:Drawer} initial={true} hideNavBar={true}>
-                        <Scene key="main" tabs={true} default='tab1' hideNavBar={true}>
+                        <Scene key="main" tabs={true} default='tab1' hideNavBar={true} tabBarStyle={styles.tabBarStyle}>
                             <Scene key="tab1"
                                 component={MainContainer} 
                                 title="首页"
@@ -229,5 +230,8 @@ const getSceneStyle = function (/* NavigationSceneRendererProps */ props, comput
 const styles = StyleSheet.create({
     bottomTabStyle:{
         paddingBottom:2
+    },
+    tabBarStyle:{
+        backgroundColor: 'white'
     }
 });

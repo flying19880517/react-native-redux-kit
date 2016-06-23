@@ -57,7 +57,7 @@ class Drawer extends Component {
           renderNavigationView={() => navigationView}
           onDrawerOpen={()=>{this.setState({ isOpen: true });}}
           onDrawerClose={()=>{this.setState({ isOpen: false });}}>
-          <DefaultRenderer title='App' navigationState={children[0]} onNavigate={this.props.onNavigate}/>
+          <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate}/>
         </DrawerLayoutAndroid>
       );
     }
