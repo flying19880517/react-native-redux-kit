@@ -48,7 +48,7 @@
 -keepclassmembers class *  { @com.facebook.react.uimanager.annotations.ReactProp <methods>; }
 -keepclassmembers class *  { @com.facebook.react.uimanager.annotations.ReactPropGroup <methods>; }
 
--dontwarn com.facebook.react.**
+#-dontwarn com.facebook.react.**
 
 # okhttp
 
@@ -64,3 +64,6 @@
 -dontwarn java.nio.file.*
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
+
+-keep class com.oblador.vectoricons.** { *; }
+-keep class com.facebook.react.** { *; }
